@@ -29,10 +29,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean saveOrder(OrderHelper orderHelper) {
+        if (orderDao.showAllOrders().containsKey(orderHelper.getId()))
+            return false;
+
         List<Animal> animals = Arrays.stream(orderHelper.getAnimalIds()).mapToObj(s-> animalDao.getAnimal(s)).collect(Collectors.toList());
         Order order = new Order.Builder(orderHelper.getId(), orderHelper.getName()).
                     withTodayDate().addAnimal(animals).comment(orderHelper.getComment()).build();
-        return orderDao.saveOrder(order);
+        orderDao.saveOrder(order);
+        return true;
     }
 
     @Override

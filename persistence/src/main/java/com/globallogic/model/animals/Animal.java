@@ -31,7 +31,7 @@ public abstract class Animal implements Serializable {
         this.name = name;
         this.price = price;
         this.estimatedBornDate = estimatedBornDate;
-        this.type = JsonTypeInfo.Id.MINIMAL_CLASS.toString();
+        this.type = getClass().getSimpleName();
     }
 
     public Animal() {
@@ -63,6 +63,10 @@ public abstract class Animal implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id=id;
     }
 
     public String getType(){

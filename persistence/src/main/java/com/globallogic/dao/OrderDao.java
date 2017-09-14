@@ -7,7 +7,7 @@ public interface OrderDao {
 
     Order readOrder(int id);
 
-    boolean saveOrder(Order order);
+    void saveOrder(Order order);
 
     Map<Integer, Order> showAllOrders();
 

@@ -19,12 +19,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean saveOrder(Order order) {
-        if (orders.containsKey(order.getId()))
-                return false;
+    public void saveOrder(Order order) {
         orders.put(order.getId(), order);
         saveDataToFile();
-        return true;
     }
 
     @Override
@@ -67,4 +64,5 @@ public class OrderDaoImpl implements OrderDao {
             e.printStackTrace();
         }
     }
+
 }
