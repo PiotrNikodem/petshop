@@ -15,5 +15,6 @@ JSON ORDER EXAMPLE POST: </br> {
 "animalIds" : [13, 14],
 "comment":"yo"
 } </br>
+You need hsqldb and e.g. tomcat to run app. Remember to configure spring-servlet.xml and hibernate.cfg.xml.
 </body>
 </html>

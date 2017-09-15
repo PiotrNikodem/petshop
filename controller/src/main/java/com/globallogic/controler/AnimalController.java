@@ -1,7 +1,7 @@
 package com.globallogic.controler;
 
 import com.globallogic.model.animals.Animal;
-import com.globallogic.service.AnimalServiceImpl;
+import com.globallogic.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class AnimalController {
 
     @Autowired
-    AnimalServiceImpl animalService;
+     AnimalService animalService;
 
     @RequestMapping(value = "/animal", method = RequestMethod.POST, consumes = "application/json")
     public <T extends Animal> void saveAnimal(@RequestBody T animal) {

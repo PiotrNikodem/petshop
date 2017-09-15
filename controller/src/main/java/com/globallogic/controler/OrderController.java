@@ -2,6 +2,7 @@ package com.globallogic.controler;
 
 import com.globallogic.model.Order;
 import com.globallogic.model.OrderHelper;
+import com.globallogic.service.OrderService;
 import com.globallogic.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,12 @@ import java.util.Map;
 public class OrderController {
     // TODO: 9/12/2017 ExceptionHandler
 
+    private OrderService orderService;
+
     @Autowired
-    OrderServiceImpl orderService;
+    public OrderController(OrderServiceImpl orderService) {
+        this.orderService=orderService;
+    }
 
     @RequestMapping(value = "/order", method = RequestMethod.POST, consumes = "application/json")
      public ResponseEntity saveOrder(@RequestBody OrderHelper orderHelper) {

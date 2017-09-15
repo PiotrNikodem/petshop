@@ -1,6 +1,8 @@
 package com.globallogic.service;
 
+import com.globallogic.dao.AnimalDao;
 import com.globallogic.dao.AnimalDaoImpl;
+import com.globallogic.dao.OrderDao;
 import com.globallogic.dao.OrderDaoImpl;
 import com.globallogic.model.Order;
 import com.globallogic.model.OrderHelper;
@@ -17,10 +19,15 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+
+    private OrderDao orderDao;
+    private AnimalDao animalDao;
+
     @Autowired
-    OrderDaoImpl orderDao;
-    @Autowired
-    AnimalDaoImpl animalDao;
+    public OrderServiceImpl(OrderDaoImpl orderDao, AnimalDaoImpl animalDao) {
+        this.orderDao=orderDao;
+        this.animalDao=animalDao;
+    }
 
     @Override
     public Order readOrder(int id) {

@@ -1,20 +1,20 @@
 package com.globallogic.service;
 
-import com.globallogic.dao.AnimalDaoImpl;
+import com.globallogic.dao.AnimalDao;
 import com.globallogic.model.animals.Animal;
 import com.globallogic.model.animals.Cat;
 import com.globallogic.model.animals.Hamster;
 import com.globallogic.model.animals.Lizard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
+
 
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
-    AnimalDaoImpl animalDao;
+    private AnimalDao animalDao;
 
     @Override
     public void saveAnimal(Animal animal) {
@@ -25,7 +25,6 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal getAnimal(int id) {
         return animalDao.getAnimal(id);
     }
-
     @Override
     public List<? extends Animal> getList() {
         return animalDao.getList();

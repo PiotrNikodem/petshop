@@ -18,4 +18,5 @@ public interface AnimalService {
      void deleteAnimal(int id);
 
      Animal getFirstPageAnimal(String type);
+
 }

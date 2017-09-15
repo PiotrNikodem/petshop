@@ -7,20 +7,20 @@ import com.globallogic.model.animals.Lizard;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class AnimalDaoImpl implements AnimalDao {
-    // TODO: 9/12/2017 remove boilerplate :) transactional + ses.factory bean
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public void save(Animal animal) {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction t = session.beginTransaction();
         session.persist(animal);
         t.commit();
@@ -29,64 +29,49 @@ public class AnimalDaoImpl implements AnimalDao {
 
     @Override
     public Animal getAnimal(int id) {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         return session.get(Animal.class, id);
     }
 
     @Override
     public List<? extends Animal> getList() {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Query query = session.createQuery("from Animal" );
-        List<Animal> list = query.list();
-        session.close();
-        return list;
+        return query.list();
     }
 
     @Override
     public void deleteAnimal(int id) {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Animal animal = session.get(Animal.class, id);
         session.delete(animal);
         session.flush();
-        session.close();
     }
-
+    @Override
     public List<Hamster> getHamsterList() {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Query query = session.createQuery("from Animal where type = :type");
         query.setParameter("type", "Hamster");
-        List<Hamster> list = query.list();
-        session.close();
-        return list;
+        return query.list();
+
     }
+    @Override
     public List<Cat> getCatList() {
-        Session session = getSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Query query = session.createQuery("from Animal where type = :type");
         query.setParameter("type", "Cat");
-        List<Cat> list = query.list();
-        session.close();
-        return list;
+        return query.list();
     }
-
+    @Override
     public List<Lizard> getLizardList() {
-        Session session = getSession();
-        session.beginTransaction();
+        Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Animal where type = :type");
         query.setParameter("type", "Lizard");
-        List<Lizard> list = query.list();
-        session.close();
-        return list;
-    }
-
-    private static Session getSession() {
-        Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        SessionFactory factory = cfg.buildSessionFactory();
-        return factory.getCurrentSession();
+        return query.list();
     }
 }
