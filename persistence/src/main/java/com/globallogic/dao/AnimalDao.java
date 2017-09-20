@@ -15,7 +15,7 @@ public interface AnimalDao{
 
     List<? extends Animal> getList();
 
-    void deleteAnimal(int id);
+    boolean deleteAnimal(int id);
 
     List<Cat> getCatList();
     List<Hamster> getHamsterList();

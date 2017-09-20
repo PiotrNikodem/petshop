@@ -31,8 +31,8 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public void deleteAnimal(int id) {
-        animalDao.deleteAnimal(id);
+    public boolean deleteAnimal(int id) {
+        return animalDao.deleteAnimal(id);
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface AnimalService {
 
      List<? extends Animal> getList();
 
-     void deleteAnimal(int id);
+     boolean deleteAnimal(int id);
 
      Animal getFirstPageAnimal(String type);
 

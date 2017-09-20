@@ -31,7 +31,9 @@ public class AnimalDaoImpl implements AnimalDao {
     public Animal getAnimal(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        return session.get(Animal.class, id);
+        Animal animal = session.get(Animal.class, id);
+        session.close();
+        return animal;
     }
 
     @Override
@@ -43,12 +45,18 @@ public class AnimalDaoImpl implements AnimalDao {
     }
 
     @Override
-    public void deleteAnimal(int id) {
+    public boolean deleteAnimal(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Animal animal = session.get(Animal.class, id);
-        session.delete(animal);
-        session.flush();
+        if (animal != null) {
+            session.delete(animal);
+            session.flush();
+            session.close();
+            return true;
+        }
+        session.close();
+        return false;
     }
     @Override
     public List<Hamster> getHamsterList() {

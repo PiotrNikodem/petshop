@@ -40,9 +40,13 @@ public class OrderServiceImpl implements OrderService {
             return false;
 
         List<Animal> animals = Arrays.stream(orderHelper.getAnimalIds()).mapToObj(s-> animalDao.getAnimal(s)).collect(Collectors.toList());
+        if(animals.contains(null))
+            return false;
+
         Order order = new Order.Builder(orderHelper.getId(), orderHelper.getName()).
                     withTodayDate().addAnimal(animals).comment(orderHelper.getComment()).build();
         orderDao.saveOrder(order);
+        Arrays.stream(orderHelper.getAnimalIds()).forEach(s->animalDao.deleteAnimal(s));
         return true;
     }
 

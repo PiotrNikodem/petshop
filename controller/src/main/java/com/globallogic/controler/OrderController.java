@@ -26,7 +26,7 @@ public class OrderController {
         if (orderService.saveOrder(orderHelper))
             return new ResponseEntity(HttpStatus.OK);
          else
-            return new ResponseEntity<>("Unique id of order already exists, please enter different value", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Please check if unique id of order and animals are correct", HttpStatus.CONFLICT);
     }
 
     @RequestMapping(value = "/order/{orderId}", method = RequestMethod.GET, produces = "application/json")

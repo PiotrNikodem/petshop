@@ -3,6 +3,8 @@ package com.globallogic.controler;
 import com.globallogic.model.animals.Animal;
 import com.globallogic.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,8 +24,11 @@ public class AnimalController {
         return animalService.getAnimal(Integer.valueOf(animalId));
     }
     @RequestMapping(value = "/animal/{animalId}", method = RequestMethod.DELETE)
-    public void deleteAnimal(@PathVariable String animalId) {
-        animalService.deleteAnimal(Integer.valueOf(animalId));
+    public ResponseEntity deleteAnimal(@PathVariable String animalId) {
+        if (animalService.deleteAnimal(Integer.valueOf(animalId)))
+            return new ResponseEntity(HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Animals with given id does not exists.", HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/animal", method = RequestMethod.GET, produces = "application/json")
